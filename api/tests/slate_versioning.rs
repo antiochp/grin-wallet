@@ -28,7 +28,7 @@ fn _receive_versioned_slate() {
 	// by accepting and responding with a V1 slate
 
 	let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-	let dir = dir
+	let path = dir
 		.path()
 		.to_str()
 		.ok_or("Failed to convert tmpdir path to string.".to_owned())
@@ -52,7 +52,7 @@ fn _receive_versioned_slate() {
 	let request_val: Value = serde_json::from_str(v1_req).unwrap();
 	let expected_response: Value = serde_json::from_str(v1_resp).unwrap();
 
-	let response = run_doctest_foreign(request_val, dir, false, 5, true, false)
+	let response = run_doctest_foreign(request_val, path, false, 5, true, false)
 		.unwrap()
 		.unwrap();
 
@@ -71,7 +71,7 @@ fn _receive_versioned_slate() {
 /// call ForeignRpc::receive_tx on vs and return the result
 fn receive_tx(vs: VersionedSlate) -> VersionedSlate {
 	let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-	let dir = dir
+	let path = dir
 		.path()
 		.to_str()
 		.ok_or("Failed to convert tmpdir path to string.".to_owned())
@@ -83,7 +83,7 @@ fn receive_tx(vs: VersionedSlate) -> VersionedSlate {
 	)
 	.unwrap();
 	let (call, tracker) = bound_method.call();
-	let json_response = run_doctest_foreign(call.as_request(), dir, 5, false, false)
+	let json_response = run_doctest_foreign(call.as_request(), path, 5, false, false)
 		.unwrap()
 		.unwrap();
 	let mut response = easy_jsonrpc::Response::from_json_response(json_response).unwrap();

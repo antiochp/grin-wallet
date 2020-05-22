@@ -127,12 +127,12 @@ where
 	///
 	/// let mut wallet_config = WalletConfig::default();
 	/// # let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-	/// # let dir = dir
+	/// # let path = dir
 	/// #   .path()
 	/// #   .to_str()
 	/// #   .ok_or("Failed to convert tmpdir path to string.".to_owned())
 	/// #   .unwrap();
-	/// # wallet_config.data_file_dir = dir.to_owned();
+	/// # wallet_config.data_file_dir = path.to_owned();
 	///
 	/// // A NodeClient must first be created to handle communication between
 	/// // the wallet and the node.
@@ -1306,14 +1306,14 @@ where
 	/// let dir = "path/to/wallet/dir";
 	///
 	/// # let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-	/// # let dir = dir
+	/// # let path = dir
 	/// #   .path()
 	/// #   .to_str()
 	/// #   .ok_or("Failed to convert tmpdir path to string.".to_owned())
 	/// #   .unwrap();
 	///
 	/// let api_owner = Owner::new(wallet.clone(), None);
-	/// let result = api_owner.set_top_level_directory(dir);
+	/// let result = api_owner.set_top_level_directory(path);
 	///
 	/// if let Ok(dir) = result {
 	///    //...
@@ -1356,14 +1356,14 @@ where
 	/// let dir = "path/to/wallet/dir";
 	///
 	/// # let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-	/// # let dir = dir
+	/// # let path = dir
 	/// #   .path()
 	/// #   .to_str()
 	/// #   .ok_or("Failed to convert tmpdir path to string.".to_owned())
 	/// #   .unwrap();
 	///
 	/// let api_owner = Owner::new(wallet.clone(), None);
-	/// let _ = api_owner.set_top_level_directory(dir);
+	/// let _ = api_owner.set_top_level_directory(path);
 	///
 	/// let result = api_owner.create_config(&ChainTypes::Mainnet, None, None, None);
 	///
@@ -1423,16 +1423,16 @@ where
 	/// // note that the WalletInst struct does not necessarily need to contain an
 	/// // instantiated wallet
 	///
-	/// let dir = "path/to/wallet/dir";
+	/// let path = "path/to/wallet/dir";
 	///
 	/// # let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-	/// # let dir = dir
+	/// # let path = dir
 	/// #   .path()
 	/// #   .to_str()
 	/// #   .ok_or("Failed to convert tmpdir path to string.".to_owned())
 	/// #   .unwrap();
 	/// let api_owner = Owner::new(wallet.clone(), None);
-	/// let _ = api_owner.set_top_level_directory(dir);
+	/// let _ = api_owner.set_top_level_directory(path);
 	///
 	/// // Create configuration
 	/// let result = api_owner.create_config(&ChainTypes::Mainnet, None, None, None);
@@ -1490,16 +1490,16 @@ where
 	///
 	/// // note that the WalletInst struct does not necessarily need to contain an
 	/// // instantiated wallet
-	/// let dir = "path/to/wallet/dir";
+	/// let path = "path/to/wallet/dir";
 	///
 	/// # let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-	/// # let dir = dir
+	/// # let path = dir
 	/// #   .path()
 	/// #   .to_str()
 	/// #   .ok_or("Failed to convert tmpdir path to string.".to_owned())
 	/// #   .unwrap();
 	/// let api_owner = Owner::new(wallet.clone(), None);
-	/// let _ = api_owner.set_top_level_directory(dir);
+	/// let _ = api_owner.set_top_level_directory(path);
 	///
 	/// // Create configuration
 	/// let result = api_owner.create_config(&ChainTypes::Mainnet, None, None, None);
@@ -2127,13 +2127,13 @@ macro_rules! doctest_helper_setup_doc_env {
 		use uuid::Uuid;
 
 		let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-		let dir = dir
+		let path = dir
 			.path()
 			.to_str()
 			.ok_or("Failed to convert tmpdir path to string.".to_owned())
 			.unwrap();
 		let mut wallet_config = WalletConfig::default();
-		wallet_config.data_file_dir = dir.to_owned();
+		wallet_config.data_file_dir = path.to_owned();
 		let pw = ZeroingString::from("");
 
 		let node_client = HTTPNodeClient::new(&wallet_config.check_node_api_http_addr, None);

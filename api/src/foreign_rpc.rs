@@ -536,7 +536,7 @@ macro_rules! doctest_helper_json_rpc_foreign_assert_response {
 		use tempfile::tempdir;
 
 		let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-		let dir = dir
+		let path = dir
 			.path()
 			.to_str()
 			.ok_or("Failed to convert tmpdir path to string.".to_owned())
@@ -547,7 +547,7 @@ macro_rules! doctest_helper_json_rpc_foreign_assert_response {
 
 		let response = run_doctest_foreign(
 			request_val,
-			dir,
+			path,
 			$use_token,
 			$blocks_to_mine,
 			$init_tx,

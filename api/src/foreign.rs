@@ -120,12 +120,12 @@ where
 	///
 	/// let mut wallet_config = WalletConfig::default();
 	/// # let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-	/// # let dir = dir
+	/// # let path = dir
 	/// #   .path()
 	/// #   .to_str()
 	/// #   .ok_or("Failed to convert tmpdir path to string.".to_owned())
 	/// #   .unwrap();
-	/// # wallet_config.data_file_dir = dir.to_owned();
+	/// # wallet_config.data_file_dir = path.to_owned();
 	///
 	/// // A NodeClient must first be created to handle communication between
 	/// // the wallet and the node.
@@ -421,13 +421,13 @@ macro_rules! doctest_helper_setup_doc_env_foreign {
 		use libwallet::{BlockFees, IssueInvoiceTxArgs, Slate, WalletInst};
 
 		let dir = tempdir().map_err(|e| format!("{:#?}", e)).unwrap();
-		let dir = dir
+		let path = dir
 			.path()
 			.to_str()
 			.ok_or("Failed to convert tmpdir path to string.".to_owned())
 			.unwrap();
 		let mut wallet_config = WalletConfig::default();
-		wallet_config.data_file_dir = dir.to_owned();
+		wallet_config.data_file_dir = path.to_owned();
 		let pw = ZeroingString::from("");
 
 		let node_client = HTTPNodeClient::new(&wallet_config.check_node_api_http_addr, None);
